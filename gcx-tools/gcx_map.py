@@ -8,10 +8,12 @@ def smeared_gauss(x, y, s, d):
     
     Parameters
     ----------
-    x: 2D array_like
-    y: 2D array_like
-    s: STD of the glycocalyx peak
-    d: width of the line segment
+    x : 2D array_like
+    y : 2D array_like
+    s : float
+        STD of the glycocalyx peak
+    d : float
+        width of the line segment
 
     Returns
     -------
@@ -35,18 +37,24 @@ def gcx_segment(x, y, A, s, d, xo, yo, theta):
 
     Parameters
     ----------
-    x: 2D array_like
-    y: 2D array_like
-    A: Maximum intensity of the glycocalyx intensity
-    s: STD of the glycocalyx peak
-    d: width of the segment along which line-profiles of intensity are averaged
-    xo: x-coordinate of the glycocalyx peak (maximum intensity)
-    yo: y-coordinate of the glycocalyx peak (maximum intensity)
-    theta: Angle between the vessel wall segment and x-axis
+    x : 2D array_like
+    y : 2D array_like
+    A : float 
+        Maximum value of the glycocalyx fluorescence intensity profile
+    s : float
+        STD of the glycocalyx peak
+    d : float
+        width of the segment along which line-profiles of intensity are averaged
+    xo : float
+        x-coordinate of the glycocalyx peak (maximum intensity)
+    yo : float 
+        y-coordinate of the glycocalyx peak (maximum intensity)
+    theta : float
+        Angle between the vessel wall segment and x-axis, in radians
 
     Returns
     -------
-    z: 2D array_like
+    z : 2D array_like
 
     Notes
     -----
