@@ -71,4 +71,4 @@ def get_angle(point1, point2):
     """
     x1, y1 = point1
     x2, y2 = point2
-    return np.pi/2 - np.arctan((y2 -y1)/(x2 - x1))
+    return np.pi/2 - np.arctan((y2 -y1)/(x2 - x1)) if x1 != x2 else 0
