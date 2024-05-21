@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.special import erf
-
+import matplotlib.pyplot as plt
+from matplotlib.collections import LineCollection
 
 def smeared_gauss(x, y, s, d):
     """
@@ -72,3 +73,40 @@ def get_angle(point1, point2):
     x1, y1 = point1
     x2, y2 = point2
     return np.pi/2 - np.arctan((y2 -y1)/(x2 - x1)) if x1 != x2 else 0
+
+
+def plot_line_segments(x, y, vals, colormap, linewidth=3, ax=None, xlim=None, ylim=None, xlabel=None, ylabel=None, cbar_label=None):
+    """ 
+    Plots line segments of different colors
+
+    Parameters
+    ----------
+    x : 1D array_like
+    y : 1D array_like
+    vals: 1D array_like
+          values corresponding to each (x, y) point, e.g. brightness of the glycocalyx
+    colormap: str or a mapping
+    linewidth: float
+               line width of the segment
+    cbar_label
+    """
+    if ax is None:
+        fig, ax = plt.subplots()
+    
+    vals_mean = 0.5*(vals[:-1] + vals[1:])
+    vals_norm = plt.Normalize(vals_mean.min(), vals_mean.max())
+    points = np.array([x, y]).T.reshape(-1, 1, 2)
+    segments = np.concatenate([points[:-1], points[1:]], axis=1)
+
+    lc = LineCollection(segments, cmap=colormap, norm=vals_norm)
+    lc.set_array(vals_mean)
+    lc.set_linewidth(linewidth)
+    line = ax.add_collection(lc)
+    cbar = plt.colorbar(line, ax=ax)
+
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+    
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    cbar.set_label(cbar_label)
